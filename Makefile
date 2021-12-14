@@ -13,3 +13,4 @@ endif
 endif
 
 include prefix-tree/build.mk
+include c-bindings/build.mk

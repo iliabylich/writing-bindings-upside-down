@@ -1,5 +1,7 @@
 # RUSTFLAGS += -Clinker-plugin-lto
 
+CARGOFLAGS += --features=external
+
 ifeq ($(BUILD_ENV), release)
 CARGOFLAGS += --release
 endif
