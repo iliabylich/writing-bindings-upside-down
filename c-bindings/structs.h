@@ -2,33 +2,18 @@
 #define STRUCTS_H
 
 #include <stddef.h>
+#include <stdint.h>
 #include <stdbool.h>
 
 typedef struct Char
 {
-    char *ptr;
-    size_t len;
+    uint8_t bytes[4];
 } Char;
 
-struct PrefixTreeNode;
-typedef struct PrefixTreeNode PrefixTreeNode;
-
-typedef struct VecPrefixTreeNode
+typedef struct CharList
 {
-    PrefixTreeNode *ptr;
+    Char *ptr;
     size_t len;
-} VecPrefixTreeNode;
-
-typedef struct PrefixTreeNode
-{
-    Char character;
-    bool is_word_end;
-    VecPrefixTreeNode children;
-} PrefixTreeNode;
-
-typedef struct PrefixTree
-{
-    PrefixTreeNode root;
-} PrefixTree;
+} CharList;
 
 #endif // STRUCTS_H
