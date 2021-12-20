@@ -17,6 +17,14 @@ fn main() {
         .join("\n");
 
     std::fs::write("src/sizes.rs", sizes_rs).unwrap();
+
+    let external_lib_path =
+        std::env::var("EXTERNAL_LIB_PATH").expect("EXTERNAL_LIB_PATH var is missing");
+    println!("cargo:rustc-link-search={}", external_lib_path);
+
+    let external_lib_name =
+        std::env::var("EXTERNAL_LIB_NAME").expect("EXTERNAL_LIB_NAME var is missing");
+    println!("cargo:rustc-link-lib=static={}", external_lib_name);
 }
 
 #[cfg(not(feature = "external"))]

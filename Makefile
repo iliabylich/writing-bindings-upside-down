@@ -12,5 +12,8 @@ $(error Unknown BUILD_ENV=$(BUILD_ENV); known values: debug, release; default: d
 endif
 endif
 
-include prefix-tree/build.mk
+include rust-foo/build.mk
 include c-bindings/build.mk
+
+clean:
+	rm -rf $(CLEAN)
