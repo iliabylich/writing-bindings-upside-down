@@ -25,6 +25,13 @@ fn main() {
     let external_lib_name =
         std::env::var("EXTERNAL_LIB_NAME").expect("EXTERNAL_LIB_NAME var is missing");
     println!("cargo:rustc-link-lib=static={}", external_lib_name);
+
+    if std::env::var("LINK_WITH_CXX_RUNTIME").is_ok() {
+        println!("cargo:rustc-link-lib=dylib=c++");
+        if cfg!(target_os = "linux") {
+            println!("cargo:rustc-link-lib=dylib=stdc++");
+        }
+    }
 }
 
 #[cfg(not(feature = "external"))]
