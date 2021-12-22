@@ -27,9 +27,10 @@ fn main() {
     println!("cargo:rustc-link-lib=static={}", external_lib_name);
 
     if cfg!(feature = "link-with-cxx-runtime") {
-        println!("cargo:rustc-link-lib=dylib=c++");
         if cfg!(target_os = "linux") {
             println!("cargo:rustc-link-lib=dylib=stdc++");
+        } else {
+            println!("cargo:rustc-link-lib=dylib=c++");
         }
     }
 }
