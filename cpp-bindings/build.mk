@@ -9,13 +9,24 @@ CLEAN += cpp-bindings/print-sizes
 
 cpp-bindings/sizes: cpp-bindings/print-sizes
 	rm -f $@
-	./cpp-bindings/print-sizes >> $@
+	./cpp-bindings/print-sizes > $@
 CLEAN += cpp-bindings/sizes
 
-cpp-bindings/all.o: cpp-bindings/structs.hpp cpp-bindings/bindings.cpp cpp-bindings/bindings-support.hpp
+cpp-bindings/bindings.o: cpp-bindings/structs.hpp cpp-bindings/bindings.cpp cpp-bindings/bindings-support.hpp
 	$(CXX) $(CXXFLAGS) cpp-bindings/bindings.cpp -c -o $@
-CLEAN += cpp-bindings/all.o
+CLEAN += cpp-bindings/bindings.o
 
-cpp-bindings/libbindings.a: cpp-bindings/all.o
-	$(AR) rc $@ $<
+cpp-bindings/bindings-support.o: cpp-bindings/structs.hpp cpp-bindings/bindings-support.cpp cpp-bindings/bindings-support.hpp
+	$(CXX) $(CXXFLAGS) cpp-bindings/bindings-support.cpp -c -o $@
+CLEAN += cpp-bindings/bindings-support.o
+
+cpp-bindings/libbindings.a: cpp-bindings/bindings.o cpp-bindings/bindings-support.o
+	$(AR) rc $@ cpp-bindings/bindings.o cpp-bindings/bindings-support.o
 CLEAN += cpp-bindings/libbindings.a
+
+cpp-bindings/test-runner: cpp-bindings/test.cpp rust-foo/librust-foo-rust.a
+	$(CXX) cpp-bindings/test.cpp $(CXXFLAGS) -Lrust-foo -lrust-foo-rust -o $@
+CLEAN += cpp-bindings/test-runner
+
+cpp-bindings/test: cpp-bindings/test-runner
+	./cpp-bindings/test-runner
