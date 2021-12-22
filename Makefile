@@ -21,7 +21,11 @@ else
 ifeq ($(BUILD_LANG),C++)
 include cpp-bindings/build.mk
 else
+ifeq ($(BUILD_LANG),Ruby)
+include ruby-bindings/build.mk
+else
 $(error Unknown BUILD_LANG=$(BUILD_LANG). Known values: C, C++)
+endif
 endif
 endif
 endif

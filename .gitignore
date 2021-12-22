@@ -6,3 +6,4 @@ sizes
 print-sizes
 *.dSYM
 test-runner
+*.bundle
