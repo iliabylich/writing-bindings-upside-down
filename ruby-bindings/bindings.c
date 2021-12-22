@@ -15,6 +15,10 @@ uint8_t char__at(const Char_BLOB *self, uint8_t idx)
     VALUE this = *self;
     return StringValuePtr(this)[idx];
 }
+void char__drop(Char_BLOB *self)
+{
+    // noop, Ruby has GC
+}
 
 CharList_BLOB char_list__new()
 {
@@ -31,4 +35,8 @@ size_t char_list__len(const CharList_BLOB *self)
 Char_BLOB char_list__at(const CharList_BLOB *self, size_t idx)
 {
     return rb_ary_entry(*self, idx);
+}
+void char_list__drop(CharList_BLOB *self)
+{
+    // noop, Ruby has GC
 }

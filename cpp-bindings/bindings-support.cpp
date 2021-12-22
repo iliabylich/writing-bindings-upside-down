@@ -20,8 +20,8 @@
     T UNPACK_##T(T##_BLOB blob)     \
     {                               \
         T##_UNION u;                \
-        u.blob = std::move(blob);   \
-        return u.value;             \
+        u.blob = blob;              \
+        return std::move(u.value);  \
     };
 
 IMPL_BLOB(Char);

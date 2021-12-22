@@ -10,6 +10,10 @@ uint8_t char__at(const Char_BLOB *self, uint8_t idx)
 {
     return self->bytes[idx];
 }
+void char__drop(Char_BLOB *self)
+{
+    // noop, Char has no allocations
+}
 
 CharList_BLOB char_list__new()
 {
@@ -34,4 +38,11 @@ size_t char_list__len(const CharList_BLOB *self)
 Char_BLOB char_list__at(const CharList_BLOB *self, size_t idx)
 {
     return self->ptr[idx];
+}
+void char_list__drop(CharList_BLOB *self)
+{
+    if (self->len > 0)
+    {
+        free(self->ptr);
+    }
 }

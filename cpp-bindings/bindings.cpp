@@ -5,29 +5,25 @@ extern "C"
 {
     Char_BLOB char__new(uint8_t c1, uint8_t c2, uint8_t c3, uint8_t c4) noexcept
     {
-        std::string s;
-        s.reserve(4);
-        s.push_back(c1);
-        s.push_back(c2);
-        if (c3)
-            s.push_back(c3);
-        if (c4)
-            s.push_back(c4);
-        return PACK_Char(std::move(s));
+        return PACK_Char(Char(c1, c2, c3, c4));
     }
     uint8_t char__at(const Char_BLOB *self, uint8_t idx) noexcept
     {
         const Char *s = (const Char *)self;
-        if (idx >= s->size())
+        if (idx >= 4)
         {
             return 0;
         }
-        return s->at(idx);
+        return s->bytes[idx];
+    }
+    void char__drop(Char_BLOB *self)
+    {
+        ((Char *)self)->~Char();
     }
 
     CharList_BLOB char_list__new() noexcept
     {
-        return PACK_CharList(std::vector<std::string>());
+        return PACK_CharList(CharList());
     }
     void char_list__push(CharList_BLOB *self, Char_BLOB item) noexcept
     {
@@ -40,5 +36,9 @@ extern "C"
     Char_BLOB char_list__at(const CharList_BLOB *self, size_t idx) noexcept
     {
         return PACK_Char(((CharList *)self)->at(idx));
+    }
+    void char_list__drop(CharList_BLOB *self)
+    {
+        ((CharList *)self)->~CharList();
     }
 }

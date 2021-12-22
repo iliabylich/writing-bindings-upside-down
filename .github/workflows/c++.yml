@@ -19,7 +19,7 @@ jobs:
       AR: llvm-ar-12
       CXXFLAGS: -fsanitize=address
       RUSTFLAGS: -Z sanitizer=address
-      ASAN_OPTIONS: detect_leaks=0
+      ASAN_OPTIONS: detect_leaks=1
     steps:
       - name: checkout
         uses: actions/checkout@v2

@@ -3,23 +3,24 @@
 
 #include "structs.hpp"
 
-#define DECLARE_BLOB(T)               \
-    extern "C"                        \
-    {                                 \
-        struct T##_BLOB               \
-        {                             \
-            uint8_t bytes[sizeof(T)]; \
-        };                            \
-    }                                 \
-    union T##_UNION                   \
-    {                                 \
-        T value;                      \
-        T##_BLOB blob;                \
-                                      \
-        ~T##_UNION();                 \
-        T##_UNION();                  \
-    };                                \
-    T##_BLOB PACK_##T(T value);       \
+#define DECLARE_BLOB(T)                   \
+    extern "C"                            \
+    {                                     \
+        struct T##_BLOB                   \
+        {                                 \
+            uint8_t bytes[sizeof(T)];     \
+        };                                \
+    }                                     \
+    void print_##T##_BLOB(T##_BLOB blob); \
+    union T##_UNION                       \
+    {                                     \
+        T value;                          \
+        T##_BLOB blob;                    \
+                                          \
+        ~T##_UNION();                     \
+        T##_UNION();                      \
+    };                                    \
+    T##_BLOB PACK_##T(T value);           \
     T UNPACK_##T(T##_BLOB blob);
 
 DECLARE_BLOB(Char);

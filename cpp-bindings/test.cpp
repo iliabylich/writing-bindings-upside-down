@@ -24,14 +24,14 @@ int main()
     CharList chars = cpp_foo(data.c_str());
     assert_eq(chars.size(), 3);
 
-    std::cout << "chars[0] = " << chars[0] << '\n';
-    assert_eq(chars[0], std::string("😋"));
+    std::cerr << "chars[0] = " << chars[0].as_string() << '\n';
+    assert_eq(chars[0].as_string(), "😋");
 
-    std::cout << "chars[1] = " << chars[1] << '\n';
-    assert_eq(chars[1], std::string("中"));
+    std::cerr << "chars[1] = " << chars[1].as_string() << '\n';
+    assert_eq(chars[1].as_string(), "中");
 
-    std::cout << "chars[2] = " << chars[2] << '\n';
-    assert_eq(chars[2], std::string("国"));
+    std::cerr << "chars[2] = " << chars[2].as_string() << '\n';
+    assert_eq(chars[2].as_string(), "国");
 
     std::cout << "All tests passed!\n";
 

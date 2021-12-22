@@ -35,11 +35,13 @@ mod external {
     extern "C" {
         fn char__new(c1: u8, c2: u8, c3: u8, c4: u8) -> Char;
         fn char__at(this: *const Char, idx: u8) -> u8;
+        fn char__drop(this: *mut Char);
 
         fn char_list__new() -> CharList;
         fn char_list__push(this: *mut CharList, item: Char);
         fn char_list__len(this: *const CharList) -> usize;
         fn char_list__at(this: *const CharList, idx: usize) -> Char;
+        fn char_list__drop(this: *mut CharList);
     }
 
     impl Char {
@@ -63,17 +65,25 @@ mod external {
             let c2 = c.byte_at(1);
             let c3 = c.byte_at(2);
             let c4 = c.byte_at(3);
-            println!("{} {} {} {}", c1, c2, c3, c4);
-            panic!("dead")
+            let bytes = [c1, c2, c3, c4];
+            let mut zero_idx = 4;
+            for idx in 0..4 {
+                if bytes[idx] == 0 {
+                    zero_idx = idx;
+                    break;
+                }
+            }
+            let bytes = &bytes[0..zero_idx];
+            let s = std::str::from_utf8(bytes).unwrap();
+            let chars = s.chars().collect::<Vec<_>>();
+            debug_assert!(chars.len() == 1);
+            chars[0]
         }
     }
 
     impl PartialEq for Char {
         fn eq(&self, other: &Self) -> bool {
-            self.byte_at(0) == other.byte_at(0)
-                && self.byte_at(1) == other.byte_at(1)
-                && self.byte_at(2) == other.byte_at(2)
-                && self.byte_at(3) == other.byte_at(3)
+            (0..4).all(|idx| self.byte_at(idx) == other.byte_at(idx))
         }
     }
 
@@ -95,6 +105,18 @@ mod external {
         }
         pub fn at(&self, idx: usize) -> Char {
             unsafe { char_list__at(self, idx) }
+        }
+    }
+
+    impl Drop for Char {
+        fn drop(&mut self) {
+            unsafe { char__drop(self) }
+        }
+    }
+
+    impl Drop for CharList {
+        fn drop(&mut self) {
+            unsafe { char_list__drop(self) }
         }
     }
 }

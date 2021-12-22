@@ -10,11 +10,13 @@ extern "C"
 
     Char_BLOB char__new(uint8_t c1, uint8_t c2, uint8_t c3, uint8_t c4);
     uint8_t char__at(const Char_BLOB *self, uint8_t idx);
+    void char__drop(Char_BLOB *self);
 
     CharList_BLOB char_list__new();
     void char_list__push(CharList_BLOB *self, Char_BLOB item);
     size_t char_list__len(const CharList_BLOB *self);
     Char_BLOB char_list__at(const CharList_BLOB *self, size_t idx);
+    void char_list__drop(CharList_BLOB *self);
 
 #ifdef __cplusplus
 }
