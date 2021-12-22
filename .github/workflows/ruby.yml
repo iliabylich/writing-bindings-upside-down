@@ -15,6 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       BUILD_LANG: Ruby
+      DYLIB: so
     steps:
       - name: checkout
         uses: actions/checkout@v2

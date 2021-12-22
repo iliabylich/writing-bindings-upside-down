@@ -2,6 +2,10 @@ EXTERNAL_BINDINGS = true
 BINDINGS_DIR = ruby-bindings
 CARGOFLAGS += --features=external
 
+ifndef DYLIB
+DYLIB = bundle
+endif
+
 define compile
 ruby ruby-bindings/compile.rb $(1) $(2)
 endef
@@ -31,9 +35,9 @@ ruby-bindings/libbindings.a: ruby-bindings/bindings.o
 	$(AR) rc $@ ruby-bindings/bindings.o
 CLEAN += ruby-bindings/libbindings.a
 
-ruby-bindings/foo.bundle: ruby-bindings/init.o rust-foo/librust-foo-rust.a
+ruby-bindings/foo.$(DYLIB): ruby-bindings/init.o rust-foo/librust-foo-rust.a
 	$(call link_dylib,ruby-bindings/init.o rust-foo/librust-foo-rust.a,$@)
-CLEAN += ruby-bindings/foo.bundle
+CLEAN += ruby-bindings/foo.$(DYLIB)
 
-ruby-bindings/test: ruby-bindings/foo.bundle
+ruby-bindings/test: ruby-bindings/foo.$(DYLIB)
 	ruby ruby-bindings/test-runner.rb

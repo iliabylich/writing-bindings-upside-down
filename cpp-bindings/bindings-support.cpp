@@ -1,4 +1,5 @@
 #include "bindings-support.hpp"
+#include <cstring>
 
 #define IMPL_BLOB(T)                             \
     T##_UNION::~T##_UNION() {}                   \
