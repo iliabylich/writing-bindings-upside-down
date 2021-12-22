@@ -111,6 +111,12 @@ pub fn foo(s: &str) -> CharList {
     char_list
 }
 
+#[no_mangle]
+pub extern "C" fn c_foo(s: *const i8) -> CharList {
+    let s = unsafe { std::ffi::CStr::from_ptr(s).to_str().unwrap() };
+    foo(s)
+}
+
 #[test]
 fn test_foo() {
     let s = "abc😋中国";
