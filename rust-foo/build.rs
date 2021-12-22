@@ -26,7 +26,7 @@ fn main() {
         std::env::var("EXTERNAL_LIB_NAME").expect("EXTERNAL_LIB_NAME var is missing");
     println!("cargo:rustc-link-lib=static={}", external_lib_name);
 
-    if std::env::var("LINK_WITH_CXX_RUNTIME").is_ok() {
+    if cfg!(feature = "link-with-cxx-runtime") {
         println!("cargo:rustc-link-lib=dylib=c++");
         if cfg!(target_os = "linux") {
             println!("cargo:rustc-link-lib=dylib=stdc++");

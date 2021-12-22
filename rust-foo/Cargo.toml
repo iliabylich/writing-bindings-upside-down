@@ -12,4 +12,7 @@ default = []
 # enables "external" mode, when structs have only size but no fields
 external = []
 
+# enables linking with C++ runtime
+link-with-cxx-runtime = []
+
 [dependencies]
