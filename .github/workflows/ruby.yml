@@ -1,0 +1,35 @@
+name: test-ruby
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  test:
+    name: test Ruby
+    runs-on: ubuntu-latest
+    env:
+      BUILD_LANG: Ruby
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: install rust
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          override: true
+
+      - name: install ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.0.0"
+
+      - name: run UI tests
+        run: make ruby-bindings/test

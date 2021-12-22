@@ -1,7 +1,7 @@
 EXTERNAL_BINDINGS = true
 BINDINGS_DIR = c-bindings
 CARGOFLAGS += --features=external
-CFLAGS += -g
+CFLAGS += -g -lpthread -ldl -lm
 
 c-bindings/print-sizes: c-bindings/sizes.c c-bindings/structs.h
 	$(CC) c-bindings/sizes.c $(CFLAGS) -o c-bindings/print-sizes

@@ -36,4 +36,4 @@ ruby-bindings/foo.bundle: ruby-bindings/init.o rust-foo/librust-foo-rust.a
 CLEAN += ruby-bindings/foo.bundle
 
 ruby-bindings/test: ruby-bindings/foo.bundle
-	ruby ruby-bindings/test.rb
+	ruby ruby-bindings/test-runner.rb

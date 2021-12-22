@@ -7,3 +7,4 @@ print-sizes
 *.dSYM
 test-runner
 *.bundle
+rust-foo/src/sizes.rs
