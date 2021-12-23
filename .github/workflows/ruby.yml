@@ -15,6 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       BUILD_LANG: Ruby
+      DYLIB: so
     steps:
       - name: checkout
         uses: actions/checkout@v2
@@ -23,7 +24,7 @@ jobs:
         uses: actions-rs/toolchain@v1
         with:
           profile: minimal
-          toolchain: stable
+          toolchain: nightly
           override: true
 
       - name: install ruby

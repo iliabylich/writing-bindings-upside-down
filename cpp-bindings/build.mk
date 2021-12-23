@@ -1,7 +1,7 @@
 EXTERNAL_BINDINGS = true
 BINDINGS_DIR = cpp-bindings
 CARGOFLAGS += --features=external,link-with-cxx-runtime
-CXXFLAGS += -std=c++17 -g
+CXXFLAGS += -std=c++17 -g -lpthread -ldl -lm -fPIE
 
 cpp-bindings/print-sizes: cpp-bindings/sizes.cpp cpp-bindings/structs.hpp
 	$(CXX) $(CXXFLAGS) cpp-bindings/sizes.cpp -o cpp-bindings/print-sizes

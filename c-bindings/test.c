@@ -4,6 +4,7 @@
 #include <string.h>
 
 CharList c_foo(const char *s);
+void char_list__drop(CharList *chars);
 
 void Char_to_str(Char c, char *s)
 {
@@ -40,6 +41,8 @@ int main()
     Char_to_str(chars.ptr[2], s);
     printf("chars[2] = %s\n", s);
     assert_str_eq(s, "国");
+
+    char_list__drop(&chars);
 
     printf("All tests passed!\n");
 
