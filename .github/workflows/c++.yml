@@ -31,5 +31,8 @@ jobs:
           toolchain: nightly
           override: true
 
+      - name: run Rust tests
+        run: make rust-foo/test
+
       - name: run UI tests
         run: make cpp-bindings/test
